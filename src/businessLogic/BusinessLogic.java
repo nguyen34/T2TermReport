@@ -5,7 +5,7 @@ import org.zeromq.ZMQ;
 
 public class BusinessLogic {
 	private static String inputResponsePort = "tcp://*:5555";
-	private static String outputPublishPort = "tcp://*:5556"; 
+	private static String outputPort = "tcp://*:5556"; 
 	
 	
 	
@@ -18,7 +18,7 @@ public class BusinessLogic {
 	        
 	        // Socket to publish to output
 	        ZMQ.Socket publisher = context.socket(ZMQ.PUB);
-	        publisher.bind(outputPublishPort);
+	        publisher.bind(outputPort);
 
 	        while (!Thread.currentThread().isInterrupted()) {
 	            // Wait for next request from the input
@@ -33,7 +33,7 @@ public class BusinessLogic {
 	          
 	            //re-send string to input to tell ui it's been sent *Not needed but necessary for REQ-REP sockets*
 	            
-	            System.out.println("Re-sending to input" + requestString);
+	            System.out.println("Re-sending to input: " + requestString);
 	            
 	            String reply = requestString + " Sent.";
 	            responder.send(reply.getBytes(), 0);
