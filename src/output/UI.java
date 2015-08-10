@@ -18,8 +18,9 @@ public class UI extends JFrame {
 
 	private JPanel contentPane;
 	private JLabel outputLabel;
-	private static ZMQ.Context context = ZMQ.context(2);
-	private static String outputPublishPort = "tcp://localhost:5556";
+	private static ZMQ.Context context = ZMQ.context(1);
+	private static String outputAddress = "ipc://output";
+	//JLabel lblWaitingForSubmission = new JLabel("");
 	/**
 	 * Launch the application.
 	 */
@@ -41,9 +42,10 @@ public class UI extends JFrame {
 	}
 
 	private String connectToBusinessLogic() {
+		//lblWaitingForSubmission.setText("Waiting for submission from Input Stub.");
 		System.out.println("Creating  socket...");
 		ZMQ.Socket subscriber = context.socket(ZMQ.SUB);
-		subscriber.connect(outputPublishPort);
+		subscriber.connect(outputAddress);
 		System.out.println("Socket Created...");
 		
 		String filter = "";
@@ -72,19 +74,25 @@ public class UI extends JFrame {
 		outputLabel.setBounds(83, 97, 258, 37);
 		contentPane.add(outputLabel);
 		
-		JButton requestButton = new JButton("Request Input String");
+		JButton requestButton = new JButton("Request Result");
 		requestButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+			
 				String result = connectToBusinessLogic();
 				if (!result.equals(null)){
 				outputLabel.setText(result);
 			} else {
 				System.err.println("Error: Result is Null");
 			}
+				//lblWaitingForSubmission.setText("");
 			}
 		});
 		requestButton.setBounds(116, 146, 184, 25);
 		contentPane.add(requestButton);
+		
+	//	lblWaitingForSubmission.setBounds(65, 182, 305, 37);
+	//	contentPane.add(lblWaitingForSubmission);
+		
 		
 	
 		
