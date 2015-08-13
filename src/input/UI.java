@@ -27,9 +27,7 @@ public class UI extends JFrame {
 	private JFormattedTextField integerOneTextField;
 	private JFormattedTextField integerTwoTextField;
 	private JLabel lblOperationToSend;
-	private String firstInteger;
-	private String secondInteger;
-	private String operation;
+	private String mathProblem;
 	/**
 	 * Launch the application.
 	 */
@@ -139,7 +137,7 @@ public class UI extends JFrame {
 	
 	private void pushToBusinessLogic() {
 		
-			if (operation == null){
+			if (mathProblem == null){
 				System.err.println("Error: Please enter Equation to submit");
 				lblOperationToSend.setForeground(Color.red);
 				lblOperationToSend.setText("Error: No equation set up to submit");
@@ -151,15 +149,8 @@ public class UI extends JFrame {
 				System.out.println("Connecting to: " + inputAddress);
 				sender.connect(inputAddress);
 				
-				System.out.println("Sending: " + firstInteger);
-				sender.send(firstInteger.getBytes(), 0);
-				
-				System.out.println("Sending: " + secondInteger);
-				sender.send(secondInteger.getBytes(), 0);
-				
-				System.out.println("Sending: " + operation);
-				sender.send(operation.getBytes(), 0);
-				
+				System.out.println("Sending: " + mathProblem);
+				sender.send(mathProblem.getBytes(), 0);
 				
 			}
 			}
@@ -171,9 +162,7 @@ public class UI extends JFrame {
 			Integer.parseInt(i2);
 			lblOperationToSend.setForeground(Color.black);
 			lblOperationToSend.setText(i1 + " " + op + " " + i2);
-			firstInteger = i1;
-			secondInteger = i2;
-			operation = op;
+			mathProblem = i1 + " " + i2 + " " + op;
 		} catch (NumberFormatException e){
 			
 			System.err.println("NumberFormatException Error: Please input integers for Integer1 and Integer2 text fields");

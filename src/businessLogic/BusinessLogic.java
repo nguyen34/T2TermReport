@@ -22,37 +22,36 @@ public class BusinessLogic {
 
 	        while (!Thread.currentThread().isInterrupted()) {
 	            // Wait for next request from the input
-	            byte[] integer1 = receiver.recv(0);
-	            String string1 = new String(integer1);
+	            byte[] mathProblem = receiver.recv(0);
+	            String mathProblemStr = new String(mathProblem);
 	            
-	            System.out.println("Integer 1 Received: " + string1);
+	            System.out.println("Equation Received: " + mathProblemStr);
 	            
-	            byte[] integer2 = receiver.recv(0);
-	            String string2 = new String(integer2);
+	            String[] equationArray = mathProblemStr.split(" ");
 	            
-	            System.out.println("Integer 2 Received: " + string2);
-	            
-	            
-	            byte[] op = receiver.recv(0);
-	            String opString = new String(op);
-	            
-	            System.out.println("Operation Sign Received: " + opString);
+	            String integer1 = equationArray[0];
+	            String integer2 = equationArray[1];
+	            String op = equationArray[2];
 	            
 	            
-	            int i1 = Integer.parseInt(string1);
-	            int i2 = Integer.parseInt(string2);
+	            System.out.println("Integer 1 is: " + integer1);
+	            System.out.println("Integer 2 is: " + integer2);
+	            System.out.println("Operation is: " + op);
+	            
+	            int i1 = Integer.parseInt(integer1);
+	            int i2 = Integer.parseInt(integer2);
 	            
 	            int result = 0;
-	            if(opString.equals("+")){
+	            if(op.equals("+")){
 	            	result = i1 + i2;
 	            }
-	            else if(opString.equals("-")){
+	            else if(op.equals("-")){
 	            	result = i1 - i2;
 	            }
-	            else if(opString.equals("*")){
+	            else if(op.equals("*")){
 	            	result = i1 * i2;
 	            }
-	            else if(opString.equals("/")){
+	            else if(op.equals("/")){
 	            	result = i1 / i2;
 	            }
 	            
