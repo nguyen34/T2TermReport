@@ -19,7 +19,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-public class UI extends JFrame {
+public class InputUI extends JFrame {
 
 	private JPanel contentPane;
 	private ZMQ.Context context = ZMQ.context(1);
@@ -35,7 +35,7 @@ public class UI extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UI frame = new UI();
+					InputUI frame = new InputUI();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -47,7 +47,7 @@ public class UI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public UI() {
+	public InputUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();

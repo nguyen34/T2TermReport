@@ -14,7 +14,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class UI extends JFrame {
+public class OutputUI extends JFrame {
 
 	private JPanel contentPane;
 	private JLabel outputLabel;
@@ -28,7 +28,7 @@ public class UI extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UI frame = new UI();
+					OutputUI frame = new OutputUI();
 					frame.setVisible(true);	
 				}
 					   
@@ -60,7 +60,7 @@ public class UI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public UI() {
+	public OutputUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
