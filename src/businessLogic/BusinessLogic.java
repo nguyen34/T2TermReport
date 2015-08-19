@@ -5,7 +5,7 @@ import org.zeromq.ZMQ;
 
 public class BusinessLogic {
 	private static String inputAddress = "ipc://input";
-	private static String outputAddress = "tcp://*:5556"; 
+	private static String outputAddress = "ipc://output"; 
 	
 	
 	
