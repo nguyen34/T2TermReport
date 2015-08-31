@@ -5,7 +5,7 @@ import time
 inputPort = "ipc://input"
 # Specift the ipc/tcp port that the business logic will be publishing output on
 outputPort = "ipc://output"
-# Specify Test Cases here
+# Specify Test Cases here under main()
 
 def main():
     
@@ -56,6 +56,16 @@ def calculate (integer1, integer2, operation):
 
     
     context = zmq.Context()
+
+        # print('Creating Subscription Socket')
+    subscriber = context.socket(zmq.SUB)
+    
+    # print("Connecting Socket to " + outputPort)
+    subscriber.connect(outputPort)
+
+     # print("Setting Filter")
+
+    subscriber.setsockopt(zmq.SUBSCRIBE, '')
     
     # print("Creating Push Socket")
     sender = context.socket(zmq.PUSH)
@@ -63,15 +73,9 @@ def calculate (integer1, integer2, operation):
     # print("Connecting to: " + inputPort)
     sender.connect(inputPort)
     
-    # print('Creating Subscription Socket')
-    subscriber = context.socket(zmq.SUB)
-    
-    # print("Connecting Socket to " + outputPort)
-    subscriber.connect(outputPort)
-    
-    # print("Setting Filter")
 
-    subscriber.setsockopt(zmq.SUBSCRIBE, '')
+    
+   
     
     # print("The expression you wish to calculate is: " + str(int1) + " " + operation + " " + str(int2) )
 
@@ -79,7 +83,10 @@ def calculate (integer1, integer2, operation):
     # print("Sending: " + s)
 
     sender.send(s)
-    time.pause(1)
+
+
+   # time.sleep(1)
+    
     result = subscriber.recv_string()
 
     # print("Received " + result)
