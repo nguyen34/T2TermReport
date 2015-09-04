@@ -4,8 +4,8 @@ import org.zeromq.ZMQ;
 
 
 public class BusinessLogic {
-	private static String inputAddress = "ipc://input:1111";
-	private static String outputAddress = "ipc://output:1111"; 
+	private static String inputAddress = "ipc://input";
+	private static String outputAddress = "ipc://output"; 
 	
 	
 	

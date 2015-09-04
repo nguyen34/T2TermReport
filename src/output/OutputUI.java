@@ -19,7 +19,7 @@ public class OutputUI extends JFrame {
 	private JPanel contentPane;
 	private JLabel outputLabel;
 	private static ZMQ.Context context = ZMQ.context(1);
-	private static String outputAddress = "ipc://output";
+	private static String outputAddress = "ipc://output:1111";
 	//JLabel lblWaitingForSubmission = new JLabel("");
 	/**
 	 * Launch the application.
