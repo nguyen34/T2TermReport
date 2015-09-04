@@ -2,9 +2,9 @@ import zmq
 import time
 
 # Specify the ipc/tcp port that the business logic is listening to for input
-inputPort = "ipc://input"
+inputPort = "ipc://input:1111"
 # Specift the ipc/tcp port that the business logic will be publishing output on
-outputPort = "ipc://output"
+outputPort = "ipc://output:1111"
 # Set up global counter variables simply to count the number of tests run and failed tests.
 testCounter = 0
 failCounter = 0
@@ -122,7 +122,7 @@ def calculate (integer1, integer2, operation):
     sender.send(s)
 
 
-   # time.sleep(1)
+    time.sleep(1)
     
     result = subscriber.recv_string()
 
