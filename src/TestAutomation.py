@@ -25,23 +25,34 @@ def main():
    os.chdir(srcPath)
    p = subprocess.Popen(['java', '-cp', '/usr/local/share/java/zmq.jar:/usr/local/lib:.', 'businessLogic/BusinessLogic'], env=d)
    #subprocess.call('java -cp /usr/local/share/java/zmq.jar:/usr/local/lib:. businessLogic/BusinessLogic', shell=True)
-   
+   time.sleep(0.5)
    #specify test cases here, using test method with the following parameters: [integer1], [integer2], [operation], [expected]
    #to test the following equation: [integer1] [operation] [integer2] = [expected]
    ####################################################################################################################################
    #Test cases:
    
-   test(1, 2,"+", 3) #1
-   test(2, 2, "-", 0) #2
-   test(1, 4, "+", 5) #3
-   test(2, 3, "*", 6) #4
-   test(4, 2, "/", 2) #5
-   test("pig", 2, "/", "Invalid") #6
-   test(4, "chicken", "/", "Invalid") #7
-   test(4, 2, "cow", "Invalid") #8
+   test(1, 2,"+", 3) 
+   test(2, 2, "-", 0) 
+   test(1, 4, "+", 5) 
+   test(2, 3, "*", 6) 
+   test(4, 2, "/", 2) 
+   test("pig", 2, "/", "Invalid") 
+   test(4, "chicken", "/", "Invalid") 
+   test(4, 2, "cow", "Invalid") 
    test(2, 4, "-", -2)
-   test(1, 1, "+", 3)
-   
+   test(2, 2, "+", 5)
+   test(-2, 2, "+", 0)
+   test(1, 2,"+", 3) 
+   test(2, 2, "-", 0) 
+   test(1, 4, "+", 5) 
+   test(2, 3, "*", 6) 
+   test(4, 2, "/", 2) 
+   test("pig", 2, "/", "Invalid") 
+   test(4, "chicken", "/", "Invalid") 
+   test(4, 2, "cow", "Invalid") 
+   test(2, 4, "-", -2)
+   test(2, 2, "+", 5)
+   test(-2, 2, "+", 0)
 
 
 
@@ -77,7 +88,7 @@ def test(int1, int2, op, expected):
 
    global log
    global testCounter
-
+   global failCounter
    if testCounter == 0:
       log = open("log.txt", "w")
    else:
@@ -85,18 +96,15 @@ def test(int1, int2, op, expected):
    
    testCounter += 1
    result = calculate(int1, int2, op)
-
    if expected == "Invalid":
       if result == expected:
          log.write("Test " + str(testCounter) + ":('" + str(int1) + "' '" + str(int2) + "' '" + str(op) + "' '" + str(expected) +"'): Passed!\n")
       else:
-         global failCounter
          failCounter += 1
          log.write("Test " + str(testCounter) + ":('" + str(int1) + "' '" + str(int2) + "' '" + str(op) + "' '" + str(expected) + "'): Failed! Expected: " + str(expected) + " Actual: " + str(result) + "\n")
    elif int(result) == int(expected):
       log.write("Test " + str(testCounter) + ":('" + str(int1) + "' '" + str(int2) + "' '" + str(op) + "' '" + str(expected) +"'): Passed!\n")
    else:
-      global failCounter
       failCounter += 1
       log.write("Test " + str(testCounter) + ":('" + str(int1) + "' '" + str(int2) + "' '" + str(op) + "' '" + str(expected) + "'): Failed! Expected: " + str(expected) + " Actual: " + str(result) + "\n")
    log.close()

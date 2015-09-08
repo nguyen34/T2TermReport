@@ -5,11 +5,13 @@ import java.io.InputStreamReader;
 
 public class JavaExecutor {
 	public static void main(String[] args) throws Exception{
-		 while (!Thread.currentThread().isInterrupted()) {
+		 
 		
 		Process p = Runtime.getRuntime().exec(new String[]{"bash", "-c", "export LD_LIBRARY_PATH=/usr/local/lib/ && export JAVA_LIBRARY_PATH=/usr/local/lib/ && cd /home/johnson/git/T2TermReport/src/ && java -cp /usr/local/share/java/zmq.jar:/usr/local/lib:. input/InputUI"});
 		Process q = Runtime.getRuntime().exec(new String[]{"bash", "-c", "export LD_LIBRARY_PATH=/usr/local/lib/ && export JAVA_LIBRARY_PATH=/usr/local/lib/ && cd /home/johnson/git/T2TermReport/src/ && java -cp /usr/local/share/java/zmq.jar:/usr/local/lib:. businessLogic/BusinessLogic"});
 		Process r = Runtime.getRuntime().exec(new String[]{"bash", "-c", "export LD_LIBRARY_PATH=/usr/local/lib/ && export JAVA_LIBRARY_PATH=/usr/local/lib/ && cd /home/johnson/git/T2TermReport/src/ && java -cp /usr/local/share/java/zmq.jar:/usr/local/lib:. output/OutputUI"});
+		
+		while (!Thread.currentThread().isInterrupted()) {
 		BufferedReader pReader = new BufferedReader(new InputStreamReader(p.getInputStream()));
 		String line = "";
 		while ((line = pReader.readLine()) != null){
