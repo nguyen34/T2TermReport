@@ -19,10 +19,11 @@ def main():
    log = open("log.txt", "w")
    print("Test Suite Started.")
 
-   
-   #os.chdir(srcPath)
-   #subprocess.call('export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib/', shell=True)
-   #subprocess.call('export JAVA_LIBRARY_PATH=/usr/local/lib/', shell=True)
+   d = dict(os.environ)
+   d['JAVA_LIBRARY_PATH'] = '/usr/local/lib/'
+   d['LD_LIBRARY_PATH'] = '/usr/local/lib/'
+   os.chdir(srcPath)
+   p = subprocess.Popen(['java', '-cp', '/usr/local/share/java/zmq.jar:/usr/local/lib:.', 'businessLogic/BusinessLogic'], env=d)
    #subprocess.call('java -cp /usr/local/share/java/zmq.jar:/usr/local/lib:. businessLogic/BusinessLogic', shell=True)
    
    #specify test cases here, using test method with the following parameters: [integer1], [integer2], [operation], [expected]
@@ -35,9 +36,9 @@ def main():
    test(1, 4, "+", 5) #3
    test(2, 3, "*", 6) #4
    test(4, 2, "/", 2) #5
-   test("pig", 2, "/", False) #6
-   test(4, "chicken", "/", False) #7
-   test(4, 2, "cow", False) #8
+   test("pig", 2, "/", "Invalid") #6
+   test(4, "chicken", "/", "Invalid") #7
+   test(4, 2, "cow", "Invalid") #8
    test(2, 4, "-", -2)
    test(1, 1, "+", 3)
    
@@ -58,15 +59,16 @@ def main():
    else:
       print(str(failCounter) + " failed. Please see log for more details.")
    log.close()
+   p.kill()
 
 # Test function - Test the simple calculation between two numbers with an expected value to confirm
 # int1 - The first integer in the equation
 # int2 - The second integer in the equation
 # op - The operation sign. Either takes +, - , *, / in string format
-# expected - The expected value, which is either a number or FALSE, given invalid inputs.
+# expected - The expected value, which is either a number or "Invalid", given invalid inputs.
 
 def test(int1, int2, op, expected):
-   if expected != False:
+   if expected != "Invalid":
       try:
          e = int(expected)
       except ValueError:
@@ -84,17 +86,19 @@ def test(int1, int2, op, expected):
    testCounter += 1
    result = calculate(int1, int2, op)
 
-   if expected == False:
+   if expected == "Invalid":
       if result == expected:
-         log.write("Test " + str(testCounter) + ": Passed!\n")
+         log.write("Test " + str(testCounter) + ":('" + str(int1) + "' '" + str(int2) + "' '" + str(op) + "' '" + str(expected) +"'): Passed!\n")
       else:
-         log.write("Test " + str(testCounter) + ": Failed! Expected: " + str(expected) + " Actual: " + str(result) + "\n")
+         global failCounter
+         failCounter += 1
+         log.write("Test " + str(testCounter) + ":('" + str(int1) + "' '" + str(int2) + "' '" + str(op) + "' '" + str(expected) + "'): Failed! Expected: " + str(expected) + " Actual: " + str(result) + "\n")
    elif int(result) == int(expected):
-      log.write("Test " + str(testCounter) + ": Passed!\n")
+      log.write("Test " + str(testCounter) + ":('" + str(int1) + "' '" + str(int2) + "' '" + str(op) + "' '" + str(expected) +"'): Passed!\n")
    else:
       global failCounter
       failCounter += 1
-      log.write("Test " + str(testCounter) + ": Failed! Expected: " + str(expected) + " Actual: " + str(result) + "\n")
+      log.write("Test " + str(testCounter) + ":('" + str(int1) + "' '" + str(int2) + "' '" + str(op) + "' '" + str(expected) + "'): Failed! Expected: " + str(expected) + " Actual: " + str(result) + "\n")
    log.close()
       
 
@@ -106,17 +110,17 @@ def calculate (integer1, integer2, operation):
         int1 = int(integer1)
     except ValueError:
         #print("integer1 is not an integer.")
-        return False
+        return "Invalid"
 
     try:
         int2 = int(integer2)
     except ValueError:
         #print("integer2 is not an integer.")
-        return False
+        return "Invalid"
 
     if operation != '+' and operation != '-' and operation != '*' and operation != '/':
         #print ("'" + operation + "' is not a valid operation sign")
-        return False
+        return "Invalid"
 
 
 

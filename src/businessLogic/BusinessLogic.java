@@ -40,6 +40,8 @@ public class BusinessLogic {
 	            
 	            int i1 = Integer.parseInt(integer1);
 	            int i2 = Integer.parseInt(integer2);
+	            i1 = Math.abs(i1);
+	            i2 = Math.abs(i2);
 	            
 	            int result = 0;
 	            if(op.equals("+")){

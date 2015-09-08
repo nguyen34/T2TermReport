@@ -23,7 +23,7 @@ public class InputUI extends JFrame {
 
 	private JPanel contentPane;
 	private ZMQ.Context context = ZMQ.context(1);
-	private String inputAddress = "ipc://input:1111";
+	private String inputAddress = "ipc://input";
 	private JFormattedTextField integerOneTextField;
 	private JFormattedTextField integerTwoTextField;
 	private JLabel lblOperationToSend;
