@@ -52,6 +52,7 @@ Note: Just running the JavaExecutor class is enough as it will set the environme
 
 
 How to run Python Test Automation:
+
 Using IDLE:
 1. Open TestAutomation.py
 2. Select ‘Run Module’ under ‘Run’. The TestAutomation will start up the BusinessLogic (expect 0.5 second delay) and run test cases written in the test script.
