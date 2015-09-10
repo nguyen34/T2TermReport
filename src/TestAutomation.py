@@ -28,8 +28,16 @@ def main():
    time.sleep(0.5)
    #specify test cases here, using test method with the following parameters: [integer1], [integer2], [operation], [expected]
    #to test the following equation: [integer1] [operation] [integer2] = [expected]
-   ####################################################################################################################################
-   #Test cases:
+   #########################################################################################################################################################################################################################################
+  
+   # Test function - Test the simple calculation between two numbers with an expected value to confirm
+   # int1 - The first integer in the equation
+   # int2 - The second integer in the equation
+   # op - The operation sign. Either takes +, - , *, / in string format
+   # expected - The expected value, which is either a number or "Invalid", given invalid inputs.
+
+   # Test Cases:
+
    
    test(1, 2,"+", 3) 
    test(2, 2, "-", 0) 
@@ -61,7 +69,7 @@ def main():
 
 
 
-   ####################################################################################################################################
+   #######################################################################################################################################################################################################################################
    print("Test Suite Finished.")
    print(str(testCounter) + " tests run.")
 
